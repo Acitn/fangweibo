@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "uni-app",
+  "usingComponents": {
+    "micro-blog": "/components/microBlog/microBlog"
+  }
+}

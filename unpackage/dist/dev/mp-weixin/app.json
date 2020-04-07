@@ -1,0 +1,53 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/discover/discover",
+    "pages/message/message",
+    "pages/videos/videos",
+    "pages/personal/personal",
+    "pages/login/login"
+  ],
+  "subPackages": [],
+  "window": {
+    "backgroundColor": "#F8F8F8"
+  },
+  "tabBar": {
+    "color": "#3f3f3f",
+    "selectedColor": "#3b3b3b",
+    "borderStyle": "black",
+    "backgroundColor": "#FFFFFF",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "iconPath": "static/image/tabBar-index.png",
+        "selectedIconPath": "static/image/tabBar-index2.png",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/videos/videos",
+        "iconPath": "static/image/tabBar-videos.png",
+        "selectedIconPath": "static/image/tabBar-videos2.png",
+        "text": "视频"
+      },
+      {
+        "pagePath": "pages/discover/discover",
+        "iconPath": "static/image/tabBar-discover.png",
+        "selectedIconPath": "static/image/tabBar-discover2.png",
+        "text": "发现"
+      },
+      {
+        "pagePath": "pages/message/message",
+        "iconPath": "static/image/tabBar-message.png",
+        "selectedIconPath": "static/image/tabBar-message2.png",
+        "text": "消息"
+      },
+      {
+        "pagePath": "pages/personal/personal",
+        "iconPath": "static/image/tabBar-personal.png",
+        "selectedIconPath": "static/image/tabBar-personal2.png",
+        "text": "我"
+      }
+    ]
+  },
+  "usingComponents": {}
+}
