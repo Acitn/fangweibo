@@ -144,7 +144,44 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(global, uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var microBlog = function microBlog() {__webpack_require__.e(/*! require.ensure | components/microBlog/microBlog */ "components/microBlog/microBlog").then((function () {return resolve(__webpack_require__(/*! ../../components/microBlog/microBlog.vue */ 53));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var microBlog = function microBlog() {__webpack_require__.e(/*! require.ensure | components/microBlog/microBlog */ "components/microBlog/microBlog").then((function () {return resolve(__webpack_require__(/*! ../../components/microBlog/microBlog.vue */ 53));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -201,20 +238,28 @@ __webpack_require__.r(__webpack_exports__);
 
   data: function data() {
     return {
-      blog: "" };
+      blog: "",
+      showGroup: false };
 
   },
   onLoad: function onLoad() {var _this = this;
-    var res = global.isLogin();
+    //登录判断
+    // var res = global.isLogin();
+    var res = true;
     console.log(res);
     if (!res) {
       uni.showModal({
         title: '请登录',
         content: "请登录",
         success: function success() {
-          uni.navigateTo({
-            url: "/pages/login/login" });
+          if (res.confirm) {
+            console.log('用户点击确定');
+            uni.navigateTo({
+              url: "/pages/login/login" });
 
+          } else if (res.cancel) {
+            console.log('用户点击取消');
+          }
         } });
 
     }
@@ -229,8 +274,11 @@ __webpack_require__.r(__webpack_exports__);
       } });
 
   },
-  methods: {} };exports.default = _default;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! (webpack)/buildin/global.js */ 3), __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
+  methods: {
+    showGrouping: function showGrouping() {
+      this.showGroup = !this.showGroup;
+    } } };exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
 /* 21 */

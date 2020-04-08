@@ -10,6 +10,42 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-qq:before {
+  content: "\e63b";
+}
+
+.icon-weixin:before {
+  content: "\e63f";
+}
+
+.icon-tubiaozhizuo-:before {
+  content: "\e60d";
+}
+
+.icon-QQkongjian:before {
+  content: "\e619";
+}
+
+.icon-zhuanfa:before {
+  content: "\e65f";
+}
+
+.icon-fenxiang:before {
+  content: "\e614";
+}
+
+.icon-jia1:before {
+  content: "\e715";
+}
+
+.icon--shanglajiantou:before {
+  content: "\e615";
+}
+
+.icon-iconkuozhan_dianzannor:before {
+  content: "\e60b";
+}
+
 .icon-xiangxia:before {
   content: "\e60c";
 }

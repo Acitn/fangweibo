@@ -8528,7 +8528,7 @@ module.exports = {"_from":"@dcloudio/uni-stat@next","_id":"@dcloudio/uni-stat@2.
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "pages": { "pages/index/index": { "navigationBarTitleText": "uni-app" }, "pages/discover/discover": {}, "pages/message/message": {}, "pages/videos/videos": {}, "pages/personal/personal": {}, "pages/login/login": {} }, "globalStyle": { "backgroundColor": "#F8F8F8" } };exports.default = _default;
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "pages": { "pages/index/index": { "navigationBarTitleText": "首页", "usingComponents": { "micro-blog": "/components/microBlog/microBlog" }, "usingAutoImportComponents": { "micro-blog": "/components/microBlog/microBlog" } }, "pages/discover/discover": { "navigationBarTitleText": "发现", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/message/message": { "navigationBarTitleText": "消息", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/videos/videos": { "navigationBarTitleText": "视频", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/personal/personal": { "navigationBarTitleText": "我", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/login/login": { "navigationBarTitleText": "登录", "usingComponents": {}, "usingAutoImportComponents": {} } }, "globalStyle": { "backgroundColor": "#F8F8F8", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black" } };exports.default = _default;
 
 /***/ }),
 /* 8 */

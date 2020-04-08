@@ -154,11 +154,15 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 //
 //
 //
+//
+//
+//
+//
 var _default =
 {
   data: function data() {
-    return {};
-
+    return {
+      Clike: false };
 
   },
   // props 可以是数组或对象，用于接收来自父组件的数据
