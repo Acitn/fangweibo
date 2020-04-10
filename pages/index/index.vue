@@ -41,53 +41,39 @@
 				</view>
 			</view>
 			<view class="topList">
-				<view class="listItem">
+				<view class="listItem" v-for="(item5,index5) in promotional" :key="index5">
 					<view class="viaBox">
-						<view class="via"></view>
+						<image class="userIcon" :src="item5.icon" mode="aspectFit"></image>
 						<view class="viaIcon" v-if="false"></view>
 					</view>
-					<view class="itemText">我的故事</view>
-				</view>
-				<view class="listItem">
-					<view class="viaBox">
-						<view class="via"></view>
-						<view class="viaIcon" v-if="false"></view>
-					</view>
-					<view class="itemText">直播广场</view>
-				</view>
-				<view class="listItem">
-					<view class="viaBox">
-						<view class="via"></view>
-						<view class="viaIcon" v-if="false"></view>
-					</view>
-					<view class="itemText">低收费</view>
-				</view>
-				<view class="listItem">
-					<view class="viaBox">
-						<view class="via"></view>
-						<view class="viaIcon" v-if="false"></view>
-					</view>
-					<view class="itemText">而大是大非</view>
+					<view class="itemText">{{item5.userName}}</view>
 				</view>
 			</view>
 		</view>
 		<microBlog :blogData="blog"></microBlog>
+		<loading :text="loadingText"></loading>
 	</view>
 </template>
 
 <script>
 	import microBlog from "../../components/microBlog/microBlog.vue"
+	import loading from "../../components/loading/loading.vue"
+	const apiPromise = require('../../static/utils/Promise.js');
+	
 	export default {
 		components: {
-			microBlog
+			microBlog,
+			loading
 		},
 		data() {
 			return {
-				blog: "",
-				showGroup: false,
-				tip: 1,
-				clickGroup: 1,
-				group: [
+				blog: "",					//别人发的微博
+				promotional: "",			//推荐视频信息
+				loadingText: "加载中...", 	//加载组件显示的文本
+				showGroup: false,			//控制顶部分组的显示
+				tip: 1,						//控制顶部分组和推荐按钮的切换
+				clickGroup: 1,				//选中的分组的id
+				group: [					//默认分组
 					{"id":1,"text":"全部关注"},
 					{"id":2,"text":"最新微博"},
 					{"id":3,"text":"特别关注"},
@@ -97,7 +83,7 @@
 					{"id":7,"text":"V+微博"},
 					{"id":8,"text":"群微博"},
 				],
-				group2: ""
+				group2: ""					//自定义分组
 			}
 		},
 		onLoad() {
@@ -121,33 +107,49 @@
 					}
 				})
 			}else {
+				//获取推荐视频信息
+				apiPromise.Get('/promotionalVideo').then((res) => {
+					console.log("推荐视频信息",res.data);
+					this.promotional = res.data
+				}).catch((err) => {
+					console.log("失败",err)
+				})
 				//获取关注人的微博
-				uni.request({
-				    url: 'https://www.fastmock.site/mock/5be1a5131b5cf07cd613ef5c49c0d5e9/blog/microBlog',
-				    success: (res) => {
-				        console.log("微博数据",res.data);
-						this.blog = this.blog == "" ? res.data.data : this.blog.push(res.data.data)
-				    },
-					fail: (err) => {
-						console.log("失败",err)
-					}
-				});
+				apiPromise.Post('/microBlog').then((res) => {
+					console.log("微博数据",res.data);
+					this.blog = res.data
+				}).catch((err) => {
+					console.log("失败",err)
+				})
 			}	
+		},
+		onReachBottom() {
+			console.log("到底了")
+			//获取关注人的微博
+			apiPromise.Post('/microBlog').then((res) => {
+				console.log("微博数据",res.data);
+				this.blog = this.blog.concat(res.data)
+			}).catch((err) => {
+				console.log("失败",err)
+			})
 		},
 		methods: {
 			showGrouping() {
 				//获取我的分组
-				uni.request({
-				    url: 'https://www.fastmock.site/mock/5be1a5131b5cf07cd613ef5c49c0d5e9/blog/group',
-				    success: (res) => {
-				        console.log("我的分组",res.data);
-						this.group2 = res.data.data
-						this.showGroup = !this.showGroup
-				    },
-					fail: (err) => {
-						console.log("失败",err)
+				if(!this.showGroup){
+					if(this.group2 == "") {
+						apiPromise.Post('/group').then((res) => {
+							console.log("我的分组",res.data);
+							this.group2 = res.data
+							this.showGroup = true
+						}).catch((err) => {
+							console.log("失败",err)
+						})	
 					}
-				});	
+				} else {
+					this.showGroup = false
+				}
+				
 			},
 			selectGroup(id) {
 				this.clickGroup = id
@@ -313,8 +315,7 @@ page {
 				align-items: center;
 				width: 140rpx;
 				.viaBox {
-					.via {
-						background-color: red;
+					.userIcon {
 						border-radius: 50%;
 						width: 120rpx;
 						height: 120rpx;

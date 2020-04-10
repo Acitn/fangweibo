@@ -1,7 +1,7 @@
 <template name="microBlog">
 	<view>
 		<view class="mask" @touchmove.stop.prevent v-if="showMask"></view>
-		<view class="blog" v-for="(item,index) in blogData" :key="item.id"> 
+		<view class="blog" v-for="(item,index) in blogData" :key="index"> 
 			<view class="blogTop">
 				<view class="userBox">
 					<image class="userIcon" :src="item.icon" mode="aspectFit"></image>
