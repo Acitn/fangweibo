@@ -10,6 +10,10 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-guanbi:before {
+  content: "\e603";
+}
+
 .icon-qq:before {
   content: "\e63b";
 }

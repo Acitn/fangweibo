@@ -1,0 +1,1 @@
+<view class="loading data-v-603deb72"><view class="sk-fading-circle data-v-603deb72"><block wx:for="{{12}}" wx:for-item="item" wx:for-index="index" wx:key="index"><view class="sk-circle data-v-603deb72"></view></block></view><text class="data-v-603deb72">{{text}}</text></view>

@@ -21,7 +21,7 @@
 				<view class="grouping">
 					<view class="groupingTop">
 						<text class="groupingTitle">默认分组</text>
-						<text class="orange">编辑</text>
+						<text class="orange" @click="edit">编辑</text>
 					</view>
 					<view class="groupingContent">
 						<view v-for="(item3,index3) in group" :key="item3.id" :class="{groupingItem:true,orange:clickGroup==item3.id}" @click="selectGroup(item3.id)">{{item3.text}}</view>
@@ -32,7 +32,10 @@
 						<text class="groupingTitle">我的分组</text>
 					</view>
 					<view class="groupingContent">
-						<view v-for="(item4,index4) in group2" :key="item4.id" :class="{groupingItem:true,orange:clickGroup==item4.id}" @click="selectGroup(item4.id)">{{item4.text}}</view>
+						<view v-for="(item4,index4) in group2" :key="item4.id" :class="{groupingItem:true,orange:clickGroup==item4.id}" @click="selectGroup(item4.id)">
+							{{item4.text}}
+							<i v-if="editable" class="iconfont icon-guanbi"></i>
+						</view>
 						<view class="groupingItem virtual">
 							<i class="iconfont icon-jia1"></i>
 							新建分组
@@ -50,7 +53,7 @@
 				</view>
 			</view>
 		</view>
-		<microBlog :blogData="blog"></microBlog>
+		<microBlog :blogData="blog" @show="showTranSpond"></microBlog>
 		<loading :text="loadingText"></loading>
 	</view>
 </template>
@@ -72,6 +75,7 @@
 				loadingText: "加载中...", 	//加载组件显示的文本
 				showGroup: false,			//控制顶部分组的显示
 				tip: 1,						//控制顶部分组和推荐按钮的切换
+				editable: false,			//编辑分组开关
 				clickGroup: 1,				//选中的分组的id
 				group: [					//默认分组
 					{"id":1,"text":"全部关注"},
@@ -140,28 +144,41 @@
 					if(this.group2 == "") {
 						apiPromise.Post('/group').then((res) => {
 							console.log("我的分组",res.data);
-							this.group2 = res.data
-							this.showGroup = true
+							this.group2 = res.data	
 						}).catch((err) => {
 							console.log("失败",err)
 						})	
 					}
+					this.showGroup = true
 				} else {
 					this.showGroup = false
+					this.editable = false
 				}
 				
 			},
 			selectGroup(id) {
 				this.clickGroup = id
+				
 				this.showGroup = false
+				this.editable = false
 			},
 			//关注和推荐界面切换
 			switchTip(tip){
+				this.showGroup = false
+				this.editable = false
 				if(tip == 1) {
 					this.tip = 1
 				}else {
 					this.tip = 2
 				}
+			},
+			//编辑分组
+			edit() {
+				this.editable = !this.editable
+			},
+			showTranSpond(params) {
+				debugger
+			       this.blog[params].showTranspond = true
 			}
 		}
 	}
@@ -295,8 +312,15 @@ page {
 						margin-bottom: 20rpx;
 						font-size: 26rpx;
 						background-color: #f2f2f2;
+						position: relative;
 						&:nth-child(4n) {
 							margin-right: 0;
+						}
+						.icon-guanbi {
+							color: #abaaa8;
+							position: absolute;
+							top: -15rpx;
+							right: -15rpx;
 						}
 					}
 				}

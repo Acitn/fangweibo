@@ -1,6 +1,6 @@
 <template name="microBlog">
 	<view>
-		<view class="mask" @touchmove.stop.prevent v-if="showMask"></view>
+		<view class="mask" @touchmove.stop.prevent v-if="showMask" @click="hide"></view>
 		<view class="blog" v-for="(item,index) in blogData" :key="index"> 
 			<view class="blogTop">
 				<view class="userBox">
@@ -22,7 +22,7 @@
 				</view>
 			</view>
 			<view class="blogOperate">
-				<view class="operate" @click="show(index)">
+				<view class="operate" @click="show($event,index)">
 					<i class="iconfont icon-icon--"></i>
 					<text>{{item.transpond}}</text>
 				</view>
@@ -39,16 +39,16 @@
 					<text class="red">{{item.like}}</text>
 				</view>
 			</view>
-			<view class="transpondBox" v-if="item.showTranspond">
-				<view class="transpondItem">
+			<view :class="{transpondBox: true,absolute: showPosition, absolute2: !showPosition}" :style="{visibility:(item.showTranspond ? 'unset':'hidden')}">
+				<view class="transpondItem" @click="transpond(1)">
 					<i class="iconfont icon-zhuanfa"></i>
 					<text>快转</text>
 				</view>
-				<view class="transpondItem">
+				<view class="transpondItem" @click="transpond(2)">
 					<i class="iconfont icon-icon--"></i>
 					<text>转发</text>
 				</view>
-				<view class="transpondItem" style="justify-content: space-between;">
+				<view class="transpondItem" style="justify-content: space-between;" @click="transpond(3)">
 					<view class="left">
 						<i class="iconfont icon-fenxiang"></i>
 						<text style="border-bottom: none;">分享</text>
@@ -69,15 +69,70 @@
 	export default {
 		data() {
 			return {
-				showMask: false
+				showMask: false,		//显示遮罩层
+				nowIndex: '1',			//显示转发的index
+				showPosition: true		//	默认向下显示转发弹窗
 			};
 		},
 		// props 可以是数组或对象，用于接收来自父组件的数据
 		props: ['blogData'],
 		methods: {
-			show(index) {
-				this.blogData[index].showTranspond = true
-				this.showMask = true
+			show(e,index) {	//显示转发
+
+				uni.getSystemInfo({
+				　　success: (res) => {
+					
+						const screenH = res.screenHeight,	// 屏幕的宽度
+						domH = e.touches[0].clientY,		//元素位于顶部距离
+						position = screenH/2 >= domH ? true : false
+						
+						this.showPosition = position
+						this.showMask = true
+						// 在小程序和app直接在子组件改变props的值,父组件的值不会变,导致状态没改变
+						//需要直接在父组件修改值
+						//只在h5界面不出现
+						//#ifndef H5
+							this.$parent._data.blog[index].showTranspond = true
+						//#endif
+						//只在h5界面出现
+						//#ifdef H5
+							this.blogData[index].showTranspond = true
+						//#endif
+						this.nowIndex = index	
+				    }
+				});
+			},
+			hide() { //点击遮罩层隐藏
+				//只在h5界面不出现
+				//#ifndef H5
+					this.$parent._data.blog[this.nowIndex].showTranspond = false
+				//#endif
+				//只在h5界面出现
+				//#ifdef H5
+					this.blogData[this.nowIndex].showTranspond = false
+				//#endif
+				this.nowIndex = ''
+				this.showMask = false
+			},
+			transpond(index){  //点击转发
+				if(index == 1) {
+					
+				}else if(index == 2) {
+					
+				}else {
+					
+				}
+				
+				//只在h5界面不出现
+				//#ifndef H5
+					this.$parent._data.blog[this.nowIndex].showTranspond = false
+				//#endif
+				//只在h5界面出现
+				//#ifdef H5
+					this.blogData[this.nowIndex].showTranspond = false
+				//#endif
+				this.nowIndex = ''
+				this.showMask = false
 			}
 		}
 	}
@@ -91,7 +146,7 @@
   box-sizing: border-box;
 }
 .mask {
-	position: absolute;
+	position: fixed;
 	top: 0;
 	left: 0;
 	width: 100%;
@@ -169,6 +224,10 @@
 		height: 80rpx;
 		width: 100%;
 		font-size: 26rpx;
+		.operate {
+			display: flex;
+			align-items: center;
+		}
 		.iconfont{
 			font-size: 34rpx;
 			margin-right: 10rpx;
@@ -177,10 +236,6 @@
 	.transpondBox {
 		padding: 10rpx 20rpx;
 		border-radius: 10rpx;
-		position: absolute;
-		bottom: -290rpx;
-		left: 0;
-		z-index: 3;
 		background-color: #fff;
 		width: 100%;
 		filter: drop-shadow(5rpx 5rpx 8rpx rgba(0, 0, 0, 0.4));
@@ -195,28 +250,56 @@
 				flex: 1;
 				border-bottom: 1rpx solid #e2e2e2;
 			}
-			
 			.iconfont {
 				font-size: 36rpx;
 				margin-right: 10rpx;
 			}
+			.left {
+				display: flex;
+				align-items: center;
+			}
 			.right {
+				display: flex;
+				align-items: center;
 				.iconfont {
 					color: #e5e5e5;
 				}
 			}
 		}
-		&::after {
-			content: '';
-			position: absolute;
-			top: -35rpx;
-			left: 110rpx;
-			width: 0;
-			height: 0;
-			border: 20rpx solid transparent;
-			border-bottom: 20rpx solid #fff;
-			background-color: transparent;
-		}
+	}
+}
+.absolute {
+	position: absolute;
+	bottom: -290rpx;
+	left: 0;
+	z-index: 3;
+	&::after {
+		content: '';
+		position: absolute;
+		top: -35rpx;
+		left: 110rpx;
+		width: 0;
+		height: 0;
+		border: 20rpx solid transparent;
+		border-bottom: 20rpx solid #fff;
+		background-color: transparent;
+	}
+}
+.absolute2 {
+	position: absolute;
+	bottom: 80rpx;
+	left: 0;
+	z-index: 3;
+	&::after {
+		content: '';
+		position: absolute;
+		bottom: -35rpx;
+		left: 110rpx;
+		width: 0;
+		height: 0;
+		border: 20rpx solid transparent;
+		border-top: 20rpx solid #fff;
+		background-color: transparent;
 	}
 }
 .red {

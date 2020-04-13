@@ -1,6 +1,7 @@
 {
   "navigationBarTitleText": "首页",
   "usingComponents": {
-    "micro-blog": "/components/microBlog/microBlog"
+    "micro-blog": "/components/microBlog/microBlog",
+    "loading": "/components/loading/loading"
   }
 }
