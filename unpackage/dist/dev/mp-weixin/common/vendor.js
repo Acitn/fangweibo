@@ -8527,7 +8527,7 @@ module.exports = {"_from":"@dcloudio/uni-stat@next","_id":"@dcloudio/uni-stat@2.
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "pages": { "pages/index/index": { "navigationBarTitleText": "首页" }, "pages/discover/discover": { "navigationBarTitleText": "发现" }, "pages/message/message": { "navigationBarTitleText": "消息" }, "pages/videos/videos": { "navigationBarTitleText": "视频" }, "pages/personal/personal": { "navigationBarTitleText": "我" }, "pages/login/login": { "navigationBarTitleText": "登录" } }, "globalStyle": { "backgroundColor": "#F8F8F8", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black" } };exports.default = _default;
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "pages": { "pages/personal/personal": { "navigationBarTitleText": "我" }, "pages/index/index": { "navigationBarTitleText": "首页" }, "pages/discover/discover": { "navigationBarTitleText": "发现" }, "pages/message/message": { "navigationBarTitleText": "消息" }, "pages/videos/videos": { "navigationBarTitleText": "视频" }, "pages/login/login": { "navigationBarTitleText": "登录" } }, "globalStyle": { "backgroundColor": "#eeeeee", "navigationBarBackgroundColor": "#fff", "navigationBarTextStyle": "black", "navigationStyle": "custom" } };exports.default = _default;
 
 /***/ }),
 /* 8 */
@@ -8680,7 +8680,15 @@ function normalizeComponent (
 /* 18 */,
 /* 19 */,
 /* 20 */,
-/* 21 */
+/* 21 */,
+/* 22 */,
+/* 23 */,
+/* 24 */,
+/* 25 */,
+/* 26 */,
+/* 27 */,
+/* 28 */,
+/* 29 */
 /*!*****************************************************!*\
   !*** F:/practice/fangweibo/static/utils/Promise.js ***!
   \*****************************************************/

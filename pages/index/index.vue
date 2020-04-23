@@ -1,5 +1,6 @@
 <template>
 	<view class="content">
+		
 		<view class="mask" @touchmove.stop.prevent v-show="showGroup" @click="showGrouping"></view>
 		<view class="top">
 			<view class="topTip">
@@ -12,7 +13,7 @@
 					<view v-else class="item2" @click="switchTip(1)">
 						关注
 					</view>
-					<text class="tip2" :style="{color:tip == 1 ? '#999' : '#000',fontSize:tip == 1 ? '30rpx' : '34rpx'}" @click="switchTip(2)">推荐</text>
+					<text class="tip2" :style="{color:tip == 1 ? '#999' : '#000',fontSize:tip == 1 ? '32rpx' : '36rpx'}" @click="switchTip(2)">推荐</text>
 				</view>
 				<i class="iconfont icon-jia"></i>
 				<view :class="[tip == 1 ? 'topLine' : 'topLine2']"></view>
@@ -21,10 +22,11 @@
 				<view class="grouping">
 					<view class="groupingTop">
 						<text class="groupingTitle">默认分组</text>
-						<text class="orange" @click="edit">编辑</text>
+						<text class="orange" @click="edit" v-if="!editable">编辑</text>
+						<text class="orange" @click="edit" v-if="editable">完成</text>
 					</view>
 					<view class="groupingContent">
-						<view v-for="(item3,index3) in group" :key="item3.id" :class="{groupingItem:true,orange:clickGroup==item3.id}" @click="selectGroup(item3.id)">{{item3.text}}</view>
+						<view v-for="(item3,index3) in group" :key="item3.id" :class="{groupingItem:true,orange:clickGroup==item3.id && editable == false,grey:editable}" @click="selectGroup(item3.id)">{{item3.text}}</view>
 					</view>
 				</view>
 				<view class="grouping">
@@ -32,9 +34,9 @@
 						<text class="groupingTitle">我的分组</text>
 					</view>
 					<view class="groupingContent">
-						<view v-for="(item4,index4) in group2" :key="item4.id" :class="{groupingItem:true,orange:clickGroup==item4.id}" @click="selectGroup(item4.id)">
+						<view v-for="(item4,index4) in group2" :key="item4.id" :class="{groupingItem:true,orange:clickGroup==item4.id && editable == false}" @click="selectGroup(item4.id)">
 							{{item4.text}}
-							<i v-if="editable" class="iconfont icon-guanbi"></i>
+							<i v-if="editable" class="iconfont icon-guanbi" @click="deleteGroup(item4.id)"></i>
 						</view>
 						<view class="groupingItem virtual">
 							<i class="iconfont icon-jia1"></i>
@@ -43,19 +45,20 @@
 					</view>
 				</view>
 			</view>
-			<view class="topList">
-				<view class="listItem" v-for="(item5,index5) in promotional" :key="index5">
-					<view class="viaBox">
-						<image class="userIcon" :src="item5.icon" mode="aspectFit"></image>
-						<view class="viaIcon" v-if="false"></view>
-					</view>
-					<view class="itemText">{{item5.userName}}</view>
+		</view>
+		<view class="topList">
+			<view class="listItem" v-for="(item5,index5) in promotional" :key="index5">
+				<view class="viaBox">
+					<image class="userIcon" :src="item5.icon" mode="aspectFit"></image>
+					<view class="viaIcon" v-if="false"></view>
 				</view>
+				<view class="itemText">{{item5.userName}}</view>
 			</view>
 		</view>
 		<microBlog :blogData="blog" @show="showTranSpond"></microBlog>
 		<loading :text="loadingText"></loading>
 	</view>
+	
 </template>
 
 <script>
@@ -157,10 +160,11 @@
 				
 			},
 			selectGroup(id) {
-				this.clickGroup = id
-				
-				this.showGroup = false
-				this.editable = false
+				if(!this.editable) {
+					this.clickGroup = id
+					this.showGroup = false
+					this.editable = false
+				}		
 			},
 			//关注和推荐界面切换
 			switchTip(tip){
@@ -179,12 +183,35 @@
 			showTranSpond(params) {
 				debugger
 			       this.blog[params].showTranspond = true
+			},
+			deleteGroup(id) {
+				const that = this
+				uni.showModal({			    
+				    content: '确定删除该分组吗？',
+					confirmColor: '#fb8e1f',
+				    success: function (res) {
+				        if (res.confirm) {
+				            uni.showLoading({
+				                title: '删除中'
+				            });
+							let group = that.group2,
+								len = group.length
+							for (let i = 0; i<len; i++) {
+								if(group[i].id == id) {
+									group.splice(i,1);
+									break
+								}
+							}
+							setTimeout(function(){uni.hideLoading()}, 1000)							
+				        }
+				    }
+				});
 			}
 		}
 	}
 </script>
 
-<style lang='scss' scoped>
+<style lang='scss'>
 @import "/static/iconfont/iconfont.css";
 
 /* 代替*全选选择器 */
@@ -193,13 +220,14 @@
 
 }
 page {
+	font-family: "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
 	background-color: #eeeeee;
 	color: $uni-text-color;
 }
 .content {
 	.mask {
-		position: absolute;
-		top: 90rpx;
+		position: fixed;
+		top: 0;
 		left: 0;
 		width: 100%;
 		height: 100%;
@@ -207,8 +235,16 @@ page {
 		z-index: 2;
 	}
 	.top {
-		 background-color: #fafafa;
-		 position: relative;
+		position: fixed;
+		top: 0;
+		left: 0;
+		z-index: 2;
+		width: 100%;
+		background-color: #fafafa;
+		/*在app用fixed布局会顶到手机自带的状态栏*/
+		/* #ifdef APP-PLUS */
+			padding-top: var(--status-bar-height);
+		/* #endif */
 		.topTip {
 			position: relative;
 			display: flex;
@@ -249,7 +285,7 @@ page {
 					align-items: center;
 					width: 110rpx;					
 					.iconfont {
-						font-size: 8rpx;
+						font-size: 16rpx;
 						font-weight: normal;
 						padding-left: 6rpx;
 					}
@@ -326,38 +362,46 @@ page {
 				}
 			}
 		}
-		.topList {
+	}
+	.topList {
+		display: flex;
+		align-items: center;
+		justify-content: flex-start;
+		height: 200rpx;
+		width: 100%;
+		margin-top: 90rpx;
+		/* #ifdef APP-PLUS */
+			margin-top: calc(var(--status-bar-height) + 90rpx);
+		/* #endif */
+		.listItem {
 			display: flex;
+			flex-direction: column;
+			justify-content: center;
 			align-items: center;
-			justify-content: flex-start;
-			height: 200rpx;
-			width: 100%;
-			.listItem {
-				display: flex;
-				flex-direction: column;
-				justify-content: center;
-				align-items: center;
-				width: 140rpx;
-				.viaBox {
-					.userIcon {
-						border-radius: 50%;
-						width: 120rpx;
-						height: 120rpx;
-					}
+			width: 140rpx;
+			.viaBox {
+				.userIcon {
+					border-radius: 50%;
+					width: 120rpx;
+					height: 120rpx;
 				}
-				.itemText {
-					font-size: 24rpx;
-					overflow: hidden;
-					white-space: nowrap;
-					text-overflow: ellipsis;
-					text-align: center;
-					width: 118rpx;
-				}
+			}
+			.itemText {
+				font-size: 24rpx;
+				overflow: hidden;
+				white-space: nowrap;
+				text-overflow: ellipsis;
+				text-align: center;
+				width: 118rpx;
 			}
 		}
 	}
 }
 .orange {
 	color: #fb8e1f;
+}
+.grey {
+	background-color: #fafafa;
+	color: #adadad;
 }
 </style>

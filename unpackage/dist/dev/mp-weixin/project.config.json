@@ -5,11 +5,12 @@
 	},
 	"setting": {
 		"urlCheck": false,
-		"es6": true
+		"es6": true,
+		"postcss": false
 	},
 	"compileType": "miniprogram",
 	"libVersion": "2.9.2",
-	"appid": "touristappid",
+	"appid": "wx48a0313ab99eb844",
 	"projectname": "fangweibo",
 	"simulatorType": "wechat",
 	"simulatorPluginLibVersion": {},

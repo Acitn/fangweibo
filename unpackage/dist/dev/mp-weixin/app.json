@@ -1,17 +1,18 @@
 {
   "pages": [
+    "pages/personal/personal",
     "pages/index/index",
     "pages/discover/discover",
     "pages/message/message",
     "pages/videos/videos",
-    "pages/personal/personal",
     "pages/login/login"
   ],
   "subPackages": [],
   "window": {
-    "backgroundColor": "#F8F8F8",
+    "backgroundColor": "#eeeeee",
     "navigationBarBackgroundColor": "#fff",
-    "navigationBarTextStyle": "black"
+    "navigationBarTextStyle": "black",
+    "navigationStyle": "custom"
   },
   "tabBar": {
     "color": "#3f3f3f",
@@ -52,5 +53,5 @@
     ]
   },
   "usingComponents": {},
-  "sitemapLocation": "sitemap39.json"
+  "sitemapLocation": "sitemap47.json"
 }
