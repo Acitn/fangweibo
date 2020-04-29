@@ -10,6 +10,66 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-shipinbofangyingpian2:before {
+  content: "\e78e";
+}
+
+.icon-huabanfuben2:before {
+  content: "\e65a";
+}
+
+.icon-23_tongjileibie:before {
+  content: "\e621";
+}
+
+.icon-recruitment:before {
+  content: "\e6ac";
+}
+
+.icon-lvzhou_gengduo:before {
+  content: "\e633";
+}
+
+.icon-zhibo:before {
+  content: "\e62a";
+}
+
+.icon-huabanfuben1:before {
+  content: "\e69f";
+}
+
+.icon-xinpinrenqiwang:before {
+  content: "\e618";
+}
+
+.icon-chengshi:before {
+  content: "\e7bc";
+}
+
+.icon-gengduo:before {
+  content: "\e655";
+}
+
+.icon-huaban:before {
+  content: "\e60e";
+}
+
+.icon-zhiliangjiance:before {
+  content: "\e641";
+}
+
+.icon-icon_luntan-mian:before {
+  content: "\e653";
+}
+
+.icon-lishizhangdan:before {
+  content: "\e6d7";
+}
+
+.icon-xiangyou:before {
+  content: "\e62d";
+}
+
 .icon-redu1:before {
   content: "\e659";
 }
@@ -20,14 +80,6 @@
 
 .icon-dingdan:before {
   content: "\e640";
-}
-
-.icon-yonghufangwenjilu:before {
-  content: "\e620";
-}
-
-.icon-elafskehushequ:before {
-  content: "\e624";
 }
 
 .icon-iconset0116:before {
@@ -72,10 +124,6 @@
 
 .icon-kefu:before {
   content: "\e610";
-}
-
-.icon-icon-jiankong:before {
-  content: "\e682";
 }
 
 .icon-xiangce:before {
@@ -237,4 +285,3 @@
 .icon-sousuo:before {
   content: "\e600";
 }
-

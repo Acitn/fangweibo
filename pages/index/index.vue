@@ -46,17 +46,22 @@
 				</view>
 			</view>
 		</view>
-		<view class="topList">
-			<view class="listItem" v-for="(item5,index5) in promotional" :key="index5">
-				<view class="viaBox">
-					<image class="userIcon" :src="item5.icon" mode="aspectFit"></image>
-					<view class="viaIcon" v-if="false"></view>
+		<view class="container" v-show="tip == 1">
+			<view class="topList">
+				<view class="listItem" v-for="(item5,index5) in promotional" :key="index5">
+					<view class="viaBox">
+						<image class="userIcon" :src="item5.icon" mode="aspectFit"></image>
+						<view class="viaIcon" v-if="false"></view>
+					</view>
+					<view class="itemText">{{item5.userName}}</view>
 				</view>
-				<view class="itemText">{{item5.userName}}</view>
 			</view>
+			<microBlog :blogData="blog" @show="showTranSpond"></microBlog>
+			<loading :text="loadingText"></loading>
 		</view>
-		<microBlog :blogData="blog" @show="showTranSpond"></microBlog>
-		<loading :text="loadingText"></loading>
+		<view class="container" v-show="tip == 2">
+			<tabs></tabs>
+		</view>
 	</view>
 	
 </template>
@@ -64,13 +69,11 @@
 <script>
 	import microBlog from "../../components/microBlog/microBlog.vue"
 	import loading from "../../components/loading/loading.vue"
+	import tabs from "../../components/tabs/tabs.vue"
 	const apiPromise = require('../../static/utils/Promise.js');
 	
 	export default {
-		components: {
-			microBlog,
-			loading
-		},
+		components: { microBlog, loading, tabs },
 		data() {
 			return {
 				blog: "",					//别人发的微博
@@ -97,7 +100,6 @@
 			//登录判断
 			// var res = global.isLogin();
 			var res = true
-			console.log(res)
 			if(!res){
 			    uni.showModal({
 					title:'请登录',
@@ -181,8 +183,7 @@
 				this.editable = !this.editable
 			},
 			showTranSpond(params) {
-				debugger
-			       this.blog[params].showTranspond = true
+			    this.blog[params].showTranspond = true
 			},
 			deleteGroup(id) {
 				const that = this
@@ -212,18 +213,6 @@
 </script>
 
 <style lang='scss'>
-@import "/static/iconfont/iconfont.css";
-
-/* 代替*全选选择器 */
-:not(not) {  
-  box-sizing: border-box;
-
-}
-page {
-	font-family: "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
-	background-color: #eeeeee;
-	color: $uni-text-color;
-}
 .content {
 	.mask {
 		position: fixed;
@@ -307,6 +296,9 @@ page {
 		.groupingList {
 			position: absolute;
 			top: 90rpx;
+			/* #ifdef APP-PLUS */
+				top: calc(var(--status-bar-height) + 90rpx);
+			/* #endif */
 			left: 0;
 			z-index: 3;
 			background-color: #fff;
@@ -363,36 +355,39 @@ page {
 			}
 		}
 	}
-	.topList {
-		display: flex;
-		align-items: center;
-		justify-content: flex-start;
-		height: 200rpx;
-		width: 100%;
-		margin-top: 90rpx;
+	.container {
+		padding-top: 90rpx;
 		/* #ifdef APP-PLUS */
-			margin-top: calc(var(--status-bar-height) + 90rpx);
+			padding-top: calc(var(--status-bar-height) + 90rpx);
 		/* #endif */
-		.listItem {
+		.topList {
 			display: flex;
-			flex-direction: column;
-			justify-content: center;
 			align-items: center;
-			width: 140rpx;
-			.viaBox {
-				.userIcon {
-					border-radius: 50%;
-					width: 120rpx;
-					height: 120rpx;
+			justify-content: flex-start;
+			height: 200rpx;
+			width: 100%;
+			
+			.listItem {
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+				align-items: center;
+				width: 140rpx;
+				.viaBox {
+					.userIcon {
+						border-radius: 50%;
+						width: 120rpx;
+						height: 120rpx;
+					}
 				}
-			}
-			.itemText {
-				font-size: 24rpx;
-				overflow: hidden;
-				white-space: nowrap;
-				text-overflow: ellipsis;
-				text-align: center;
-				width: 118rpx;
+				.itemText {
+					font-size: 24rpx;
+					overflow: hidden;
+					white-space: nowrap;
+					text-overflow: ellipsis;
+					text-align: center;
+					width: 118rpx;
+				}
 			}
 		}
 	}

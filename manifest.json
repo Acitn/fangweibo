@@ -50,7 +50,14 @@
             /* ios打包配置 */
             "ios" : {},
             /* SDK配置 */
-            "sdkConfigs" : {}
+            "sdkConfigs" : {
+                "ad" : {}
+            },
+            "splashscreen" : {
+                "android" : {
+                    "hdpi" : ""
+                }
+            }
         }
     },
     /* 快应用特有相关 */

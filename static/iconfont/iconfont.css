@@ -10,6 +10,58 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-close:before {
+  content: "\e613";
+}
+
+.icon-ziyuan:before {
+  content: "\e634";
+}
+
+.icon-shipinbofangyingpian2:before {
+  content: "\e78e";
+}
+
+.icon-huabanfuben2:before {
+  content: "\e65a";
+}
+
+.icon-23_tongjileibie:before {
+  content: "\e621";
+}
+
+.icon-recruitment:before {
+  content: "\e6ac";
+}
+
+.icon-lvzhou_gengduo:before {
+  content: "\e633";
+}
+
+.icon-zhibo:before {
+  content: "\e62a";
+}
+
+.icon-huabanfuben1:before {
+  content: "\e69f";
+}
+
+.icon-xinpinrenqiwang:before {
+  content: "\e618";
+}
+
+.icon-chengshi:before {
+  content: "\e7bc";
+}
+
+.icon-gengduo:before {
+  content: "\e655";
+}
+
+.icon-huaban:before {
+  content: "\e60e";
+}
+
 .icon-zhiliangjiance:before {
   content: "\e641";
 }
@@ -241,4 +293,3 @@
 .icon-sousuo:before {
   content: "\e600";
 }
-

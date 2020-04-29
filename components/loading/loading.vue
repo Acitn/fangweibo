@@ -24,7 +24,12 @@
 		justify-content: center;
 		align-items: center;
 		font-size: 30rpx;
-		margin-bottom: 10rpx;
+		// margin-bottom: 10rpx;
+		// position: fixed;
+		// bottom: 100rpx;
+		// left: 0;
+		// width: 100%;
+		// height: 60rpx;
 		.sk-fading-circle {
 		  width: 60rpx;
 		  height: 60rpx;
