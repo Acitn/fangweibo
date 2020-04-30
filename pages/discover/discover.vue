@@ -17,7 +17,7 @@
 					</view>
 					<view class="hotItem">
 						<text>士大夫打发</text>
-						<view class="icon red">新</view>
+						<view class="icon redBg">新</view>
 					</view>
 					<view class="hotItem">
 						<text>打发打发发</text>
@@ -259,7 +259,7 @@
 	.orange2 {
 		color: #fd9d19;
 	}
-	.red {
+	.redBg {
 		background-color: #f54c61;
 	}
 	.blue {

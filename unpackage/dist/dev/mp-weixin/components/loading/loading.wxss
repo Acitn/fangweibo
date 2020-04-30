@@ -35,7 +35,6 @@
   -webkit-align-items: center;
           align-items: center;
   font-size: 30rpx;
-  margin-bottom: 10rpx;
 }
 .loading .sk-fading-circle.data-v-603deb72 {
   width: 60rpx;

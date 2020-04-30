@@ -24,9 +24,16 @@
 /* 垂直间距 */
 /* 透明度 */
 /* 文章场景相关 */
-.search {
+.topCard {
+  width: 100%;
+  padding: 20rpx 10rpx;
+  background-color: #fff;
+  /*在app用fixed布局会顶到手机自带的状态栏*/
+  margin-bottom: 20rpx;
+}
+.topCard .search {
   background-color: #eaeaea;
-  height: 70rpx;
+  height: 60rpx;
   border-radius: 40rpx;
   display: -webkit-box;
   display: -webkit-flex;
@@ -40,8 +47,126 @@
   font-size: 28rpx;
   color: #999;
 }
-.search .icon-sousuo {
+.topCard .search .icon-sousuo {
   margin-right: 10rpx;
   font-size: 34rpx;
+}
+.topCard .hotTitle {
+  font-size: 28rpx;
+  color: #545454;
+  padding: 20rpx 10rpx;
+}
+.topCard .hotTitle .icon-huabanfuben1 {
+  color: #e15a61;
+  font-size: 40rpx;
+  margin-right: 10rpx;
+}
+.topCard .hotContent {
+  width: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+          flex-wrap: wrap;
+  padding: 0 10rpx;
+}
+.topCard .hotContent .hotItem {
+  width: 50%;
+  height: 60rpx;
+  font-size: 32rpx;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+          justify-content: flex-start;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+}
+.topCard .hotContent .hotItem text {
+  max-width: 260rpx;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.topCard .hotContent .hotItem .icon {
+  width: 38rpx;
+  height: 38rpx;
+  line-height: 38rpx;
+  text-align: center;
+  font-size: 24rpx;
+  font-weight: bold;
+  border-radius: 10rpx;
+  color: #fff;
+  margin-left: 10rpx;
+}
+.topCard .hotContent .hotItem .icon-xiangyou {
+  margin-left: 10rpx;
+}
+.functionCard {
+  background-color: #fff;
+  margin-bottom: 20rpx;
+  padding: 20rpx;
+}
+.functionCard .funBox {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+          justify-content: space-between;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+}
+.functionCard .funBox .funItem {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+  font-size: 24rpx;
+  margin-bottom: 20rpx;
+}
+.functionCard .funBox .funItem .iconfont {
+  font-size: 50rpx;
+  margin-bottom: 10rpx;
+}
+.functionCard .funBox .funItem .icon-recruitment {
+  color: #febd3e;
+}
+.functionCard .funBox .funItem .icon-chengshi {
+  color: #3298ed;
+}
+.functionCard .funBox .funItem .icon-icon_luntan-mian {
+  color: #f2931d;
+}
+.functionCard .funBox .funItem .icon-xinpinrenqiwang {
+  color: #ff642e;
+}
+.functionCard .funBox .funItem .icon-lvzhou_gengduo {
+  color: #a4aac2;
+}
+.functionCard .swiperImg {
+  width: 100%;
+  height: 100%;
+}
+.orange {
+  background-color: #fd9d19;
+}
+.orange2 {
+  color: #fd9d19;
+}
+.redBg {
+  background-color: #f54c61;
+}
+.blue {
+  background-color: #45abfe;
 }
 

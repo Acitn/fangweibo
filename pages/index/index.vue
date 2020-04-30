@@ -56,11 +56,12 @@
 					<view class="itemText">{{item5.userName}}</view>
 				</view>
 			</view>
-			<microBlog :blogData="blog" @show="showTranSpond"></microBlog>
+			<microBlog :blogData="blog"></microBlog>
 			<loading :text="loadingText"></loading>
 		</view>
 		<view class="container" v-show="tip == 2">
 			<tabs></tabs>
+			<microBlog :blogData="blog2"></microBlog>
 		</view>
 	</view>
 	
@@ -77,6 +78,7 @@
 		data() {
 			return {
 				blog: "",					//别人发的微博
+				blog2: "",
 				promotional: "",			//推荐视频信息
 				loadingText: "加载中...", 	//加载组件显示的文本
 				showGroup: false,			//控制顶部分组的显示
@@ -121,26 +123,44 @@
 					console.log("推荐视频信息",res.data);
 					this.promotional = res.data
 				}).catch((err) => {
-					console.log("失败",err)
+					console.log("获取推荐视频超时",err)
 				})
 				//获取关注人的微博
 				apiPromise.Post('/microBlog').then((res) => {
 					console.log("微博数据",res.data);
-					this.blog = res.data
+					let data = res.data,i ;
+					for(i = 0; i < data.length; i++) {
+						data[i].showTranspond = false
+					}
+					this.blog = data
 				}).catch((err) => {
-					console.log("失败",err)
+					console.log("获取微博超时",err)
+					uni.showToast({
+					    title: '获取微博超时,请刷新重试',
+					    duration: 2000
+					});
 				})
 			}	
 		},
 		onReachBottom() {
 			console.log("到底了")
-			//获取关注人的微博
-			apiPromise.Post('/microBlog').then((res) => {
-				console.log("微博数据",res.data);
-				this.blog = this.blog.concat(res.data)
-			}).catch((err) => {
-				console.log("失败",err)
-			})
+			if(this.tip == 1) {
+				//获取关注人的微博
+				apiPromise.Post('/microBlog').then((res) => {
+					console.log("微博数据",res.data);
+					this.blog = this.blog.concat(res.data)
+				}).catch((err) => {
+					console.log("失败",err)
+				})
+			} else {
+				//获取关注人的微博
+				apiPromise.Post('/microBlog2').then((res) => {
+					console.log("微博数据",res.data);
+					this.blog2 = this.blog2.concat(res.data)
+				}).catch((err) => {
+					console.log("失败",err)
+				})
+			}
 		},
 		methods: {
 			showGrouping() {
@@ -175,6 +195,23 @@
 				if(tip == 1) {
 					this.tip = 1
 				}else {
+					if(this.blog2 == "") {
+						//获取推荐的微博
+						apiPromise.Post('/microBlog2').then((res) => {
+							console.log("微博数据",res.data);
+							let data = res.data,i ;
+							for(i = 0; i < data.length; i++) {
+								data[i].showTranspond = false
+							}
+							this.blog2 = data
+						}).catch((err) => {
+							console.log("获取微博超时",err)
+							uni.showToast({
+							    title: '获取微博超时,请刷新重试',
+							    duration: 2000
+							});
+						})	
+					}
 					this.tip = 2
 				}
 			},

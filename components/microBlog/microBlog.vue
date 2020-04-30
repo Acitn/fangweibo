@@ -1,18 +1,33 @@
 <template name="microBlog">
 	<view>
-		<view class="blog" v-for="(item,index) in blogData" :key="index"> 
+		<view class="blog" v-for="(item,index) in blogData2" :key="index" v-if="item.type == 1 || item.type == 2"> 
 			<view class="blogTop">
 				<view class="userBox">
 					<image class="userIcon" :src="item.icon" mode="aspectFit"></image>
 					<view class="userText">
 						<view class="userName">{{item.userName}}</view>
 						<view class="userMessage">
-							<text class="date">{{item.date}}</text>
+							<text class="text" v-if="item.date">{{item.date}}</text>
+							<text class="text" v-else>来自</text>
 							<text>{{item.source}}</text>
 						</view>
 					</view>
 				</view>
-				<i class="iconfont icon-xiala" @click="show2(item.id)"></i>
+				<i class="iconfont icon-xiala" @click="show2(item.id)" v-if="item.attention && item.type == 1"></i>
+				<view class="attentionBox" v-else-if="item.type == 2">
+					<view class="fillet">
+						<i class="iconfont icon-jia1"></i>
+						关注
+					</view>
+					<i class="iconfont icon-close"></i>
+				</view>
+				<view class="attentionBox" v-else>
+					<view class="fillet2">
+						<i class="iconfont icon-dui"></i>
+						已关注
+					</view>
+					<i class="iconfont icon-close"></i>
+				</view>
 			</view>
 			<view class="blogContent">
 				<view class="contentText">{{item.text2}}</view>
@@ -38,7 +53,7 @@
 					<text class="red">{{item.like}}</text>
 				</view>
 			</view>
-			<view :class="{transpondBox: true,absolute: showPosition, absolute2: !showPosition}" :style="{visibility:(item.showTranspond ? 'unset':'hidden')}">
+			<view :class="{transpondBox: true,absolute: showPosition, absolute2: !showPosition}" v-if="item.showTranspond">
 				<view class="transpondItem" @click="transpond(1)">
 					<i class="iconfont icon-zhuanfa"></i>
 					<text>快转</text>
@@ -133,7 +148,7 @@
 		<!-- 底部弹出层 -->
 		<!-- 编辑评论层 -->
 		<view class="editorBox" @touchmove.stop.prevent v-if="showTextarea">
-			<view class="container">
+			<view class="container2">
 				<textarea class="content" placeholder="写评论…" placeholder-class="placeholderStyle" v-model="text" :focus="showTextarea"></textarea>
 				<view class="right">
 					<i class="iconfont icon-icon--1"></i>
@@ -166,14 +181,22 @@
 				showTranspond: false, 	//转发弹窗
 				showPopUp: false,		//底部弹窗
 				showTextarea: false,	//评论编辑
-				placeholder: '写评论…'
+				placeholder: '写评论…',
+				blogData2: ''
 			};
 		},
 		// props 可以是数组或对象，用于接收来自父组件的数据
 		props: ['blogData'],
+		watch: {
+		    blogData: function(newVal,oldVal){
+				//vue不推荐直接改变props应在父组件改变传入，
+				//但为了组件的便利性,在data定义个本地数据
+		        this.blogData2 = newVal; 
+		    }
+		},
 		methods: {
 			show(e,index) {	//显示转发
-
+				
 				uni.getSystemInfo({
 				　　success: (res) => {
 					
@@ -183,18 +206,12 @@
 						
 						this.showPosition = position
 						this.showMask = true
-						// 在小程序和app直接在子组件改变props的值,父组件的值不会变,导致状态没改变
-						//需要直接在父组件修改值
-						//只在h5界面不出现
-						//#ifndef H5
-							this.$parent._data.blog[index].showTranspond = true
-						//#endif
-						//只在h5界面出现
-						//#ifdef H5
-							this.blogData[index].showTranspond = true
-						//#endif
+						this.blogData2[index].showTranspond = true
 						this.showTranspond = true
 						this.nowIndex = index	
+						
+						console.log('位置',this.showPosition)
+						console.log('显示',this.showTranspond)
 				    }
 				});
 			},	
@@ -208,15 +225,7 @@
 			},
 			hide() { //点击遮罩层隐藏
 				if(this.showTranspond) {
-					
-					//只在h5界面不出现
-					//#ifndef H5
-						this.$parent._data.blog[this.nowIndex].showTranspond = false
-					//#endif
-					//只在h5界面出现
-					//#ifdef H5
-						this.blogData[this.nowIndex].showTranspond = false
-					//#endif
+					this.blogData2[this.nowIndex].showTranspond = false
 					this.showTranspond = false
 					this.nowIndex = ''
 				} else if(this.showPopUp) {
@@ -234,27 +243,13 @@
 				}else {
 					
 				}	
-				//只在h5界面不出现
-				//#ifndef H5
-					this.$parent._data.blog[this.nowIndex].showTranspond = false
-				//#endif
-				//只在h5界面出现
-				//#ifdef H5
-					this.blogData[this.nowIndex].showTranspond = false
-				//#endif
+				this.blogData2[this.nowIndex].showTranspond = false
 				this.nowIndex = ''
 				this.showTranspond = false
 				this.showMask = false
 			},
 			like(index) {
-				//只在h5界面不出现
-				//#ifndef H5
-					this.$parent._data.blog[index].Clike = !this.$parent._data.blog[index].Clike
-				//#endif
-				//只在h5界面出现
-				//#ifdef H5
-					this.blogData[index].Clike = !this.blogData[index].Clike
-				//#endif
+				this.blogData2[index].Clike = !this.blogData2[index].Clike
 			},
 			send(index) {
 				if(this.text == '') {
@@ -323,7 +318,7 @@
 					font-size: 24rpx;
 					color: $uni-text-color-grey;
 					display: flex;
-					.date {
+					.text {
 						margin-right: 10rpx;
 					}
 				}
@@ -333,6 +328,42 @@
 			font-size: 24rpx;
 			color: #d0d0d0;
 			align-self: flex-start;
+		}
+		.attentionBox {
+			display: flex;
+			align-items: flex-start;
+			.icon-close {
+				margin-left: 20rpx;
+				color: #c3c3c3;
+			}
+			.fillet {
+				padding: 10rpx 20rpx;
+				font-size: 28rpx;
+				color: #eb8418;
+				border: 1rpx solid ;
+				border-radius: 40rpx;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				.iconfont {
+					font-size: 34rpx;
+					margin-right: 5rpx;
+				}
+			}
+			.fillet2 {
+				padding: 10rpx 20rpx;
+				font-size: 28rpx;
+				color: #545454;
+				border: 1rpx solid #d3d3d3;
+				border-radius: 40rpx;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				.iconfont {
+					font-size: 34rpx;
+					margin-right: 5rpx;
+				}
+			}
 		}
 	}
 	.blogContent {
@@ -522,7 +553,7 @@
 	background-color: #fff;
 	padding: 20rpx;
 	z-index: 99;
-	.container {
+	.container2 {
 		display: flex;
 		justify-content: space-between;
 		font-size: 28rpx;

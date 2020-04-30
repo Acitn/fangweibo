@@ -271,6 +271,21 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 var _default =
 {
   data: function data() {
@@ -282,11 +297,19 @@ var _default =
       showTranspond: false, //转发弹窗
       showPopUp: false, //底部弹窗
       showTextarea: false, //评论编辑
-      placeholder: '写评论…' };
+      placeholder: '写评论…',
+      blogData2: '' };
 
   },
   // props 可以是数组或对象，用于接收来自父组件的数据
   props: ['blogData'],
+  watch: {
+    blogData: function blogData(newVal, oldVal) {
+      //vue不推荐直接改变props应在父组件改变传入，
+      //但为了组件的便利性,在data定义个本地数据
+      this.blogData2 = newVal;
+    } },
+
   methods: {
     show: function show(e, index) {var _this = this; //显示转发
 
@@ -299,18 +322,12 @@ var _default =
 
           _this.showPosition = position;
           _this.showMask = true;
-          // 在小程序和app直接在子组件改变props的值,父组件的值不会变,导致状态没改变
-          //需要直接在父组件修改值
-          //只在h5界面不出现
-
-          _this.$parent._data.blog[index].showTranspond = true;
-
-          //只在h5界面出现
-
-
-
+          _this.blogData2[index].showTranspond = true;
           _this.showTranspond = true;
           _this.nowIndex = index;
+
+          console.log('位置', _this.showPosition);
+          console.log('显示', _this.showTranspond);
         } });
 
     },
@@ -324,15 +341,7 @@ var _default =
     },
     hide: function hide() {//点击遮罩层隐藏
       if (this.showTranspond) {
-
-        //只在h5界面不出现
-
-        this.$parent._data.blog[this.nowIndex].showTranspond = false;
-
-        //只在h5界面出现
-
-
-
+        this.blogData2[this.nowIndex].showTranspond = false;
         this.showTranspond = false;
         this.nowIndex = '';
       } else if (this.showPopUp) {
@@ -350,27 +359,13 @@ var _default =
       } else {
 
       }
-      //只在h5界面不出现
-
-      this.$parent._data.blog[this.nowIndex].showTranspond = false;
-
-      //只在h5界面出现
-
-
-
+      this.blogData2[this.nowIndex].showTranspond = false;
       this.nowIndex = '';
       this.showTranspond = false;
       this.showMask = false;
     },
     like: function like(index) {
-      //只在h5界面不出现
-
-      this.$parent._data.blog[index].Clike = !this.$parent._data.blog[index].Clike;
-
-      //只在h5界面出现
-
-
-
+      this.blogData2[index].Clike = !this.blogData2[index].Clike;
     },
     send: function send(index) {
       if (this.text == '') {

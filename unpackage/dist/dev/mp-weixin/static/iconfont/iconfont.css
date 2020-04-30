@@ -10,6 +10,18 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-dui:before {
+  content: "\e609";
+}
+
+.icon-close:before {
+  content: "\e613";
+}
+
+.icon-ziyuan:before {
+  content: "\e634";
+}
+
 .icon-shipinbofangyingpian2:before {
   content: "\e78e";
 }
@@ -285,3 +297,4 @@
 .icon-sousuo:before {
   content: "\e600";
 }
+

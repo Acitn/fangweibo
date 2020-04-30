@@ -33,17 +33,18 @@ export default {
 <style lang="scss">
 
 	.sticky-box {
-		/* #ifndef APP-PLUS-NVUE */
-		display: flex;
-		position: -webkit-sticky;
-		/* #endif */
 		position: sticky;
-		top: var(--window-top);
-		z-index: 99;
+		display: flex;
+		top: 90rpx;
+		/* #ifdef APP-PLUS */
+			top: calc(var(--status-bar-height) + 90rpx);
+		/* #endif */
+		z-index: 1;
 		flex-direction: row;
+		height: 40px;
 		margin: 0px;
-		border-top: 1px #f9f9f9 solid;
-		border-bottom: 1px #f9f9f9 solid;
+		border-top: 1px #e3e3e3 solid;
+		border-bottom: 1px #e3e3e3 solid;
 		background: #fff;
 	}
 

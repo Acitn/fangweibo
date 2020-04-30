@@ -1,4 +1,7 @@
 {
   "navigationBarTitleText": "发现",
-  "usingComponents": {}
+  "usingComponents": {
+    "micro-blog": "/components/microBlog/microBlog",
+    "loading": "/components/loading/loading"
+  }
 }

@@ -10,6 +10,10 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-dui:before {
+  content: "\e609";
+}
+
 .icon-close:before {
   content: "\e613";
 }
@@ -293,3 +297,4 @@
 .icon-sousuo:before {
   content: "\e600";
 }
+

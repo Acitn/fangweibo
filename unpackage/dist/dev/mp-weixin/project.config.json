@@ -11,7 +11,7 @@
 	"compileType": "miniprogram",
 	"libVersion": "2.9.2",
 	"appid": "wx48a0313ab99eb844",
-	"projectname": "fangweibo",
+	"projectname": "%E4%BB%BF%E5%BE%AE%E5%8D%9A",
 	"simulatorType": "wechat",
 	"simulatorPluginLibVersion": {},
 	"condition": {
@@ -23,28 +23,13 @@
 			"current": -1,
 			"list": []
 		},
-		"plugin": {
-			"current": -1,
-			"list": []
-		},
 		"game": {
-			"current": -1,
-			"list": []
-		},
-		"gamePlugin": {
 			"current": -1,
 			"list": []
 		},
 		"miniprogram": {
 			"current": -1,
-			"list": [
-				{
-					"id": -1,
-					"name": "pages/videos/videos",
-					"pathName": "pages/videos/videos",
-					"scene": null
-				}
-			]
+			"list": []
 		}
 	}
 }
