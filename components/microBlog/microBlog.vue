@@ -14,7 +14,7 @@
 					</view>
 				</view>
 				<i class="iconfont icon-xiala" @click="show2(item.id)" v-if="item.attention && item.type == 1"></i>
-				<view class="attentionBox" v-else-if="item.type == 2">
+				<view class="attentionBox" v-else-if="item.type == 2" @click="attention(index)">
 					<view class="fillet">
 						<i class="iconfont icon-jia1"></i>
 						关注
@@ -266,6 +266,9 @@
 					this.showTextarea = false
 					this.showMask = false
 				}
+			},
+			attention(index) {
+				this.blogData2[index].type = 1
 			}
 		}
 	}

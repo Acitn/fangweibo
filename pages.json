@@ -35,6 +35,14 @@
             	"navigationBarTitleText": "登录"
             }
         }
+        ,{
+            "path" : "pages/videos/videoDetail",
+            "style" : {}
+        }
+        ,{
+            "path" : "pages/videos/videoDetail",
+            "style" : {}
+        }
     ],
 	"tabBar":{
 		"color":"#3f3f3f",
