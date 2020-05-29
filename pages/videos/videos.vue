@@ -29,8 +29,7 @@
 						关注
 					</view>
 				</view>
-<!-- 				<video class="content" id="myVideo" poster="https://img-cdn-qiniu.dcloud.net.cn/uniapp/doc/poster.png" src="https://img.cdn.aliyun.dcloud.net.cn/guide/uniapp/%E7%AC%AC1%E8%AE%B2%EF%BC%88uni-app%E4%BA%A7%E5%93%81%E4%BB%8B%E7%BB%8D%EF%BC%89-%20DCloud%E5%AE%98%E6%96%B9%E8%A7%86%E9%A2%91%E6%95%99%E7%A8%8B@20200317.mp4" @error="videoErrorCallback" controls></video> -->
-				<view class="content">
+				<view class="content" @click="showDetail()">
 					<view class="cover"></view>
 					<i class="iconfont icon-ziyuan"></i>
 					<view class="coverText">
@@ -53,14 +52,36 @@
 </template>
 
 <script>
+	const apiPromise = require('../../static/utils/Promise.js');
 	export default {
 		data() {
 			return {
-				
+				videos: ""
 			}
 		},
+		onLoad() {
+			//获取推荐视频
+			apiPromise.Get('/videos').then((res) => {
+				console.log("推荐视频数据",res.data);
+				let data = res.data,i ;
+				for(i = 0; i < data.length; i++) {
+					data[i].showTranspond = false
+				}
+				this.blog = data
+			}).catch((err) => {
+				console.log("获取推荐视频超时",err)
+				uni.showToast({
+				    title: '获取超时,请刷新重试',
+				    duration: 2000
+				});
+			})
+		},
 		methods: {
-			
+			showDetail(e) {
+				uni.navigateTo({
+					url: './videoDetail'
+				})
+			}
 		}
 	}
 </script>

@@ -1,6 +1,6 @@
- @font-face {font-family: "iconfont";  
-        src:url('/static/iconfont/iconfont.ttf') format('truetype'); /* chrome、firefox、opera、Safari, Android, iOS 4.2+*/  
-    } 
+@font-face {font-family: "iconfont";
+  src:url('/static/iconfont/iconfont.ttf') format('truetype'); /* chromeăfirefoxăoperaăSafari, Android, iOS 4.2+*/  
+}
 
 .iconfont {
   font-family: "iconfont" !important;
@@ -8,6 +8,42 @@
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-shang:before {
+  content: "\e607";
+}
+
+.icon-paiming:before {
+  content: "\e7da";
+}
+
+.icon-dianzan:before {
+  content: "\e61a";
+}
+
+.icon-fenxiang1:before {
+  content: "\e642";
+}
+
+.icon-pinglun:before {
+  content: "\e620";
+}
+
+.icon-zhuanfa1:before {
+  content: "\e6cf";
+}
+
+.icon-dui:before {
+  content: "\e609";
+}
+
+.icon-close:before {
+  content: "\e613";
+}
+
+.icon-ziyuan:before {
+  content: "\e634";
 }
 
 .icon-shipinbofangyingpian2:before {
@@ -285,3 +321,4 @@
 .icon-sousuo:before {
   content: "\e600";
 }
+

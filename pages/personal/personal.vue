@@ -248,6 +248,8 @@
 			width: 100%;
 			margin-bottom: 20rpx;
 			background-color: #fff;
+			position: sticky;
+			top: 90rpx;
 			.userTop {
 				display: flex;
 				justify-content: space-between;
